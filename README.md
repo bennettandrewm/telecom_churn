@@ -49,7 +49,7 @@ In order to prep this data, we can first look at the quality of the data and rea
 
 But we do have to convert these categorical columns. To do this, we're going to apply a little domain knowledge here. For starters, we know that phone numbers are assigned at random, and these should have no bearings on churn. So we've [dropped the phone numbers](#dropped_phone_numbers) from our dataset.
 
-Next, we can [one hot encode](#one_hot_encode)one hot encode the state and the area code. We also have voice mail and international plan as yes/no column, so we'll convert those columns to (1/0).
+Next, we can [one hot encode](#one_hot_encode)the state and the area code. We also have voice mail and international plan as yes/no column, so we'll convert those columns to (1/0).
 
 Finally, we will convert the target churn column from boolean to an integer (0/1).
 
