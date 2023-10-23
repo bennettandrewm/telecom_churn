@@ -82,6 +82,7 @@ From here we ran additional Decision Tree models with CV grid optimization and c
 Our best performing model was a Decision Tree model with new, Feature Engineered Data.
 
 <ins>DT Trial 1 - (train with hypertuning and cross-validation</ins>
+
 Precision Score: 0.990506329113924
 Recall Score: 0.8505434782608695
 Accuracy Score: 0.9767907162865146
@@ -91,6 +92,7 @@ Mean Cross Validation Score: 97.64%
 Whoa! Precision of 0.99, and accuracy of 97.6, with cross-validation of 97.6. These are amazing. Let's try it on the test-data.
 
 <ins>DT Trial 2 - (test with hypertuning)</ins>
+
 Precision Score: 0.9805825242718447
 Recall Score: 0.8782608695652174
 Accuracy Score: 0.9808153477218226
@@ -181,6 +183,7 @@ We'll set up a baseline KNN classifier with no pyrameters tuning to see what we 
 Now we have our model, let's see the results. We're going to use a variety of metrics here.
 
 <ins>KNN Trial 1 - Train (no hypertuning nor cross-validation (CV))</ins>
+
 Precision Score: 0.9
 Recall Score: 0.17597765363128492
 Accuracy Score: 0.8791516606642658
@@ -189,6 +192,7 @@ F1 Score: 0.29439252336448596
 Precision score of 0.9 isn't bad, and the accuracy score has improved slight from 86%. Let's see how it looks on the test data.
 
 <ins>KNN Trial 1 - Test (no hypertuning nor cross-validation (CV))</ins>
+
 Precision Score: 0.5333333333333333
 Recall Score: 0.064
 Accuracy Score: 0.8513189448441247
@@ -198,6 +202,7 @@ Okay, so not as good. It looks like we got very lucky on our train data and over
 
 Those results for the optimal K are...
 <ins>K-Optimization Trial 1:</ins>
+
 Best Value for k: 1
 Accuracy-Score: 1.0
 
@@ -206,12 +211,14 @@ Whoa! These results seem... off. It saying our best value for K is to test 1 nei
 Maybe we got lucky with our split. Let's rerun this optimzation loop but this time we will score with Cross validation.
 
 <ins>K-Optimization Trial 2:</ins>
+
 Best Value for k: 7
 Accuracy-Score: 0.8591430861723446
 
 Okay... this look more reasonable. Our optimal K value was 7 and our Accuracy was 85.9%. So, let's see how this performs on our test.
 
 <ins>KNN Trial 2 - Test (with hypertuning and cross-validation (CV))</ins>
+
 Precision Score: 0.7857142857142857
 Recall Score: 0.264
 Accuracy Score: 0.8788968824940048
@@ -225,6 +232,7 @@ Now let's try a logistic regression. To perform this, we're going to scale our m
 Let's go ahead and transform the data and then rerun it.
 
 <ins>LR Trial 1 - Train (no hypertuning or cross-validation (CV))</ins>
+
 Precision Score: 0.6333333333333333
 Recall Score: 0.26536312849162014
 Accuracy Score: 0.8727490996398559
@@ -237,6 +245,7 @@ This time, instead of a custom optimizer, I'm going to use the GridSearchCV opti
 Okay, let's check our accuracy here. I'm going to run the logistic regression, again with the new numbers.
 
 <ins>LR Trial 2 - Train (with cross-validation (CV))</ins>
+
 Precision Score: 0.6595744680851063
 Recall Score: 0.25977653631284914
 Accuracy Score: 0.874749899959984
@@ -248,6 +257,7 @@ Right, so only a marginal increase in accuracy and F1 score. Our precision score
 With decision tree, we're going to try without scaling and see what happens. We have our original training data so we can just use that. Additionally, we're going to add a cross validation score at the end to make sure our accuracy is okay, and to account for any overfitting that would naturally occur with a Decision tree.
 
 <ins>DT Trial 1 - Train (with no hypertuning nor cross-validation (CV))</ins>
+
 Precision Score: 1.0
 Recall Score: 1.0
 Accuracy Score: 1.0
@@ -257,6 +267,7 @@ Mean Cross Validation Score: 91.60%
 Whoa! We got a perfect score on our decision tree, with a mean cross validation accuracy of 91.48%. So, we're overfit with this particular model, but we have our highest accuract so far. This looks promising. Let's continue down this path and run a "quick" Grid CV and see what we can do with the current model and dataset. We can update a few of the hyper parameters and see if this improves. We know that decision trees tend to overfit.
 
 <ins>Grid Optimization Test with CV</ins>
+
 {'criterion': 'gini',
  'max_depth': 6,
  'min_samples_leaf': 3,
@@ -265,6 +276,7 @@ Whoa! We got a perfect score on our decision tree, with a mean cross validation 
 Okay, that was an intensive loop. Let's take these results and run a new Decision Tree to see what we've got.
 
 <ins>DT Trial 2 - Train (with hypertuning and cross-validation (CV))</ins>
+
 Precision Score: 0.9743589743589743
 Recall Score: 0.7430167597765364
 Accuracy Score: 0.9603841536614646
@@ -277,6 +289,7 @@ The Decision tree appears to be the best "base" model, before any boosting or fu
 Let's see the test data.
 
 <ins>DT Trial 3 - Test (with hypertuning and cross-validation (CV))</ins>
+
 Precision Score: 0.8969072164948454
 Recall Score: 0.696
 Accuracy Score: 0.9424460431654677
@@ -297,18 +310,21 @@ In our final Decision Tree model, we had a cross validation accuracy of 94%. Whe
 Let's compare the churn rate for our original data.
 
 <ins>Original Data</ins>
+
 There a total of 3333 entries.
 The percentage of users who churn is 14.49%.
 We do have class imbalance concerns.
 So... our model should have a higher accuracy than 85.51% at predicting who will stay.
 
 <ins>Train Data</ins>
+
 There a total of 2499 entries.
 The percentage of users who churn is 14.33%.
 We do have class imbalance concerns.
 So... our model should have a higher accuracy than 85.67% at predicting who will stay.
 
 <ins>Test Data</ins>
+
 There a total of 834 entries.
 The percentage of users who churn is 14.99%.
 We do have class imbalance concerns.
@@ -364,6 +380,7 @@ Let's do a new train-test split with the same size but a random_seed of 0. In es
 To start, I'm going to optimize to find the best hyperparamters with cross-validation
 
 <ins>Optimization Results:</ins>
+
 {'criterion': 'gini',
  'max_depth': 5,
  'min_samples_leaf': 4,
@@ -372,6 +389,7 @@ To start, I'm going to optimize to find the best hyperparamters with cross-valid
 So, with these results, we're going to apply them to our Decision Tree Model
 
 <ins>DT Trial 1 - (train with hypertuning and cross-validation</ins>
+
 Precision Score: 0.990506329113924
 Recall Score: 0.8505434782608695
 Accuracy Score: 0.9767907162865146
@@ -405,6 +423,7 @@ Aha! This looks good. We have a 50-50 split, and approximately 3200 piece of dat
 Now that we have a more complete model, it's a good opportunity to rerun a decision tree with a CV grid and scope out the goods. With our new sampling, let's run a new optimazation loop to hypertune our decision tree with our new SMOTE sample.
 
 <ins>CV GRID Results:</ins>
+
 {'criterion': 'gini',
  'max_depth': 6,
  'min_samples_leaf': 2,
@@ -413,6 +432,7 @@ Now that we have a more complete model, it's a good opportunity to rerun a decis
 Okay, these results are similar to the ones we had previously. Except we used 'gini' before.
 
 <ins>Decision Tree Train Data with Smote Sample</ins>
+
 Precision Score: 0.9165457184325109
 Recall Score: 0.7878976918278229
 Accuracy Score: 0.8576345431789737
@@ -423,6 +443,7 @@ Mean Cross Validation Score: 85.32%
 This is very strong. Recall that, with our new SMOTE data, we had a roughly 50-50 chance of predicting churn. We achieved a precision score of nearly 100%, with an accuracy score of 89%... this is 39% higher than 50%. This is a strong performance on 50-50 data. Let's try this new model out now on some of our original training data, still using the information from our SMOTE sample.
 
 <ins>Decision Tree Test Data with Smote Sample</ins>
+
 Precision Score: 0.926605504587156
 Recall Score: 0.8782608695652174
 Accuracy Score: 0.973621103117506
@@ -438,6 +459,7 @@ F1 Score: 0.6733333333333333
 This is good, but actually not as good as what we previously achieved. We have 97.1% accuracy with both an F1 score of 89%. Our recall improved, but remember, we probably care more about precision than we do recall. Precision dropped significantly. What's interesting here is that SMOTE, did not improve our score. Let's take a look at the tree it produced.
 
 Now let's try some additional booster
+
 #### Other Boosters, Adaboost and Gradient Boosting
 
 Adaboost
@@ -500,5 +522,6 @@ Okay, so we have 75% of our users, once they his this threshold, we'll leave. Th
 Additionally, of those we lose at this higher spend, 97% of them do not have a voice mail plan. Let's take a step back, and see if voice mail really matters. Perhaps we can looked at a stacked histogram of voicemail users.
 
 ![churn_vs_service](images/churn_vs_service_calls.png)
+
 
 ![service_calls_over_3](images/service_calls_over_3.png)
