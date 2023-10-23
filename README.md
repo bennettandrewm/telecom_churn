@@ -3,18 +3,52 @@
 ![frustrated_caller](images/frustrated_caller.jpg)
 
 ## Business Case
-Build a classifier to predict whether a customer will ("soon") stop doing business with SyriaTel, a telecommunications company. This is a binary classification problem.
+Our client, Syriatel, is concerned with their "churn" or customer loss. They work hard to provide great service at a reasonable price, and while losing customers is inevitabe, it's still painful.
 
-Most naturally, your audience here would be the telecom business itself, interested in reducing how much money is lost because of customers who don't stick around very long. The question you can ask is: are there any predictable patterns here?
+But how painful? Syriatel is looking for a deep dive into their data to determine the scope of the problem and some steps to resolve it. Are there any patterns? Can we predict which customers could be leaving "soon"?
+
+Syriatel's churn case is a binomial classification problem. This means, among all the data points we have, which determine whether a results will be true/false or 1/0. We can build a model to determine that.
+
+We will create this model using an iterative process. First, we review and inspect the data, analyze it using 3 different modeling techniques, and then evaluate the results. From here, we re-evalute the data itself, and determine if there's any additional feature engineering or data cleaning. Then we would re-examine the results using our model of choice.
 
 ## Road Map
 
 ### [Data Understanding](#data_understanding)
 For this project, we are utilizing data from SyriaTel, made available on [Kaggle](https://www.kaggle.com/datasets/becksddf/churn-in-telecoms-dataset/), a popular data science hub.
 
+We will import the csv file into a DataFrame to do our work.
+
+This is a binary classification problem. Fortunately our target column is called 'churn' and contain boolean variables. For our features columns, we have 20 feature columns, 4 of which are objects. The rest are either int or floats.
+
+This dataset appears to contain information about individual cellular accounts, with much of the information pertaining to day, night, evening, and international service usage and cost. There's also information on whether the account has a voicemail and international plan, as well as the length of the account. There's only a state, area code, and phone number that identifies the account. There's a colun for account length, but we don't know if this account data is a total, a monthly, or yearly information.
+
+Our Target variable distribution shows 483 churns out of 3333 entries. Our churn rate is approximately 15%, meaning we have some class imbalance we may need to address, and a relatively high accuracy bar to climb.
+
 ### [Data Preparation](#data_preparation)
 
+In order to prep this data, we can first look at the quality of the data and realize a few things. First, we only have four categorical columns, the rest our numeric. Second, we have no null values. Amazing.
+
+But we do have to convert these categorical columns. To do this, we're going to apply a little domain knowledge here. For starters, we know that phone numbers are assigned at random, and these should have no bearings on churn. So we've dropped the phone numbers from our dataset.
+
+Next, we know that geography could have an effect on churn, so we'll go ahead and one hot encode the state and the area code. We also have voice mail and international plan as yes/no column, so we'll convert those columns to (1/0).
+
+Finally, we will convert the target churn column from boolean to an integer (0/1).
+
 ### [Modeling](#modeling)
+
+Our approach to modeling is to try 3 different modeling techniques to see which one yields the best early results. We utilized KNN, Logistic Regression, and Decision Tree. For each model, we got
+
+As part of the modeling process, we perform a train-test split on the data. We'll set a random seed and the standard sample size of .25 for the test. We're going to do this prior to any scaling or other transformation to avoid data leakage.
+
+We're also going to use three different modeling techniques to start and then build from the best performing one. We will tune the hyperparameters to ensure that we're getting optimized results for each model
+
+We will also use the four categories of precision, recall, accuracy, and F1 score to test how well are model works.
+
+The results are shown below KNN. For the KNN model, we used the default settings on hyperparameters and got reasonal precision and accuracy scores, but incredibly low Recall and F1. We than ran a loop to determine the optimal K-value, getting a value of K=1. We got perfect scores, which was an overfit, and then decide to run a new model to determine the optimal value for K, between 1 and 25. We got K=7, reran the model, and got
+
+Precision Score: 0.9 Recall Score: 0.17597765363128492 Accuracy Score: 0.8791516606642658 F1 Score: 0.29439252336448596
+
+Logistic Regression Decision Tree
 
 ### [Evaluation](#evaluation)
 
@@ -23,6 +57,7 @@ For this project, we are utilizing data from SyriaTel, made available on [Kaggle
 ### [Conclusion](#conclusion)
 
 ## Github Repository
+In this repository, you will find
 
 ## Data Understanding <a id='data_understanding'></a>
 For this project, we are utilizing data from SyriaTel, made available on [Kaggle](https://www.kaggle.com/datasets/becksddf/churn-in-telecoms-dataset/), a popular data science hub.
