@@ -7,8 +7,9 @@ Analysis of Syriatel Customer Data to Identify Churn
 </p>
 
 ## Project Overview (#business_case)
-To aid Syriatel in their quest to limit churn, we analyzed data from 3333 users to determined root causes for customers leaving their service. Appoximately 15% of these users were quitting, accounting for $31.5k in missed revenue. Extracting publically available data in [Kaggle](https://www.kaggle.com/datasets/becksddf/churn-in-telecoms-dataset/), transforming and cleaning, the data, our model reviewed three different machine learning algorithns, with a Decision Tree algorithm providing the best results. We identified the following root causes.
+To aid Syriatel in their quest to limit churn, we analyzed data from 3333 users to determined root causes for why their customers are leaving. The churn rate is about 15%. Determining root cause will infrom Syriatel of potential weak spots in their service and shore up revenue. To perform this analysis, a publically available dataset in [Kaggle](https://www.kaggle.com/datasets/becksddf/churn-in-telecoms-dataset/) was utilized. Extracting, transforming and cleaning, the data, our model reviewed three different machine learning methods, with a Decision Tree algorithm providing the best results. 
 
+The following were the root causes which identifies more than 85% of total churn.
 * Cost - once a bill is greater than $74, 75% of customers leave 
 * Customer Service - roughly 50% of users with more than 3 service call quit 
 * Internation Service - almost 50% of International Service users discontinue their service.
@@ -26,21 +27,21 @@ Syriatel can remedy this by providing promotions for users with high phone bills
 [Github Repository](#github-repository)<br />
 
 ## Business Case
-Our client, Syriatel, is concerned with their "churn" or customer loss. They work hard to provide great service at a reasonable price, and while losing customers is inevitabe, it's still painful. According to this dataset, they've lost almost 500 users, accounting for roughly $31.5k in revenue.
+Our client, Syriatel, is concerned with their "churn" or customer loss. They work hard to provide great service at a reasonable price, and while losing customers is inevitabe, it's still painful. According to this dataset, they've lost almost 500 users (15% of total user base), accounting for roughly $31.5k in revenue.
 <br />[return to TOC](#table-of-contents-TOC)
 
 ## Data Understanding
 ### Obtaining Data
-For this project, we are utilizing data from SyriaTel, made available on [Kaggle](https://www.kaggle.com/datasets/becksddf/churn-in-telecoms-dataset/), a popular data science hub. The data itself is a CSV file, so we can use some of our standard import methods to bring in the data. The  
+For this project, we are utilizing data from SyriaTel, made available on [Kaggle](https://www.kaggle.com/datasets/becksddf/churn-in-telecoms-dataset/), a popular data science hub. The data itself is a CSV file, so we can use some of our standard import methods to bring in the data. 
 
 ### Data Inspection
-This dataset appears to contain information about individual cellular accounts, with much of the information pertaining to day, night, evening, and international service usage and cost. There's also information on whether the account has a voicemail and international plan, as well as the length of the account. There's only a state, area code, and phone number that identifies the account. There's a colun for account length, but we don't know if this account data is a total, a monthly, or yearly information.
+This dataset appears to contain information about individual cellular accounts, with much of the information pertaining to day, night, evening, and international service usage and cost. There's also information on whether the account has a voicemail and international plan, as well as the length of the account. There's only a state, area code, and phone number that identifies the account. There's a column for account length, but we don't know if this account data is a total, a monthly, or yearly information.
 
 #### Features Type
 We have 20 feature columns, 4 of which are objects. The rest are either int or floats. Fortunately our target column is called 'churn' and contain boolean variables. 
 
 #### Target Variable Distribution
-Our Target variable distribution shows 483 churns out of 3333 entries, or 15%. This suggests some class imbalance we may need to address, and a relatively high accuracy bar to cl
+Our Target variable distribution shows 483 churns out of 3333 entries, or 15%. This suggests some class imbalance we may need to address.
 <br />[return to TOC](#table-of-contents-TOC)
 
 ## Data Preparation
@@ -57,16 +58,16 @@ We convert the target churn column from boolean to an integer (0/1).
 <br />[return to TOC](#table-of-contents-TOC)
 
 ## Modeling
-Syriatel's churn case is a binomial classification problem. This means determing what contributes to a true/false determination. Our approach to modeling is to try 3 different binary classification modeling techniques to see which one yields the best early results. We utilized KNN, Logistic Regression, and Decision Tree.
+Syriatel's churn case is a binomial classification problem. This means determing what contributes to a true/false determination. Our approach is to try 3 different binary classification modeling techniques to see which yields the best results. We utilized KNN, Logistic Regression, and Decision Tree.
 
 In each case, we trained the model on the same set of training data using default hyperparamters settings. The test results were evaluated, and the model rerun optimizing for the hyperparameters. The results were evaluated on train data with a cross-validation, to guard against overfit.
 
-The model with the best results was the Decision Tree model, with the results of the test data shown below. This result included hypertuning and cross-validations sampling.
+The model with the best results was the Decision Tree model, with the results of the test data shown below. This result included hypertuning and cross-validations sampling. The results are shown below.
 
-Precision Score: 0.8969072164948454
-Recall Score: 0.696
-Accuracy Score: 0.9424460431654677
-F1 Score: 0.7837837837837837
+Precision Score: 0.8969072164948454<br />
+Recall Score: 0.696<br />
+Accuracy Score: 0.9424460431654677<br />
+F1 Score: 0.7837837837837837<br />
 <br />[return to TOC](#table-of-contents-TOC)
 
 ## Evaluation
@@ -83,19 +84,19 @@ So, we removed the area code and state from our data and also confirmed the flat
 From here we ran additional Decision Tree models with CV grid optimization and created our best peforming model. It was the Decision Tree with new Feature Engineered Data
 
 <ins>DT Trial 1 - (train with hypertuning and cross-validation</ins>
-`Precision Score: 0.990506329113924
-Recall Score: 0.8505434782608695
-Accuracy Score: 0.9767907162865146
-F1 Score: 0.9152046783625729
-Mean Cross Validation Score: 97.64%`
+Precision Score: 0.990506329113924<br />
+Recall Score: 0.8505434782608695<br />
+Accuracy Score: 0.9767907162865146<br />
+F1 Score: 0.9152046783625729<br />
+Mean Cross Validation Score: 97.64%<br />
 
 We can see a precision of 0.99, and accuracy of 97.6, with cross-validation of 97.6. This is promising on the training data. On the testing data, we have the following
 
 <ins>DT Trial 2 - (test with hypertuning)</ins>
-`Precision Score: 0.9805825242718447
-Recall Score: 0.8782608695652174
-Accuracy Score: 0.9808153477218226
-F1 Score: 0.926605504587156`
+Precision Score: 0.9805825242718447<br />
+Recall Score: 0.8782608695652174<br />
+Accuracy Score: 0.9808153477218226<br />
+F1 Score: 0.926605504587156<br />
 
 A precision and accuracy score of 98% on our test data is strong. And this is comparable to our train and cross-validation data.
 
@@ -104,7 +105,7 @@ We tried additional SMOTE resampling, and other boosting models but the above wa
 
 ## Key Findings
 
-Now that we have all of this information, let's abandon the model altogether and just look at data that we can filter based on this model. In doing so, we identify the 3 buckets below.
+Now that we have all of this information, there are three key findings that we'll call "churn buckets"
 
 ![churn_groups](images/churn_groups.png)
 
