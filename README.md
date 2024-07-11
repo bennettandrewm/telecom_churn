@@ -7,9 +7,10 @@ Analysis of Syriatel Customer Data to Identify Churn
 </p>
 
 ## Project Overview (#business_case)
-To aid Syriatel in their quest to limit churn, we analyzed data from 3333 users to determined root causes for why their customers are leaving. The churn rate is about 15%. Determining root cause will infrom Syriatel of potential weak spots in their service and shore up revenue. To perform this analysis, a publically available dataset in [Kaggle](https://www.kaggle.com/datasets/becksddf/churn-in-telecoms-dataset/) was utilized. Extracting, transforming and cleaning, the data, our model reviewed three different machine learning methods, with a Decision Tree algorithm providing the best results. 
+To aid Syriatel in their quest to limit churn, we analyzed data from over 3000 users to determined root causes for why their customers are leaving. With a churn rate of about 15%, determining root cause will inform Syriatel of potential weak spots in their service and shore up revenue. To perform this analysis, a publically available dataset in [Kaggle](https://www.kaggle.com/datasets/becksddf/churn-in-telecoms-dataset/) was utilized. Extracting, transforming and cleaning, the data, our model reviewed three different machine learning methods, with a Decision Tree algorithm providing the best results. 
 
-The following were the root causes which identifies more than 85% of total churn.
+The followingroot causes identified more than 85% of total churn.
+
 * Cost - once a bill is greater than $74, 75% of customers leave 
 * Customer Service - roughly 50% of users with more than 3 service call quit 
 * Internation Service - almost 50% of International Service users discontinue their service.
